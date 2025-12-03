@@ -1,0 +1,476 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BASE ===== */
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #f2e1d7, #e8e8e8); /* Lighter brown and gray gradient */
+    color: #3e2b2b; /* Dark brown text */
+}
+
+.main-container {
+    width: 100%;
+    max-width: 100%;      /* ⬅ remove 1100px limit */
+    margin: 90px auto 30px auto;
+    padding: 0 8px;       /* small side padding so it’s not touching the edges */
+}
+
+/* ===== HEADER ===== */
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 20px;
+    background: linear-gradient(120deg, #6c4f3d, #4e342e); /* Brown gradient */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    flex: 1;
+    text-align: center;
+    letter-spacing: 0.4px;
+}
+
+/* Back button (left) */
+.back-btn {
+    border: none;
+    background-color: rgba(255, 255, 255, 0.16);
+    color: white;
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.back-btn:hover {
+    background-color: rgba(255, 255, 255, 0.26);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.back-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Header right buttons */
+.header-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ===== BUTTONS ===== */
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        color 0.15s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.btn.primary {
+    background-color: #6c4f3d; /* Brown */
+    color: #ffffff;
+}
+
+.btn.secondary {
+    background-color: #ffffff;
+    color: #4e342e; /* Dark brown */
+}
+
+.btn.danger {
+    background-color: #f44336;
+    color: #ffffff;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== FARMER INFO CARD ===== */
+
+.farmer-info-card {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(205, 223, 204, 0.9);
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+}
+
+.farmer-info-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(76, 175, 80, 0.12), transparent 60%);
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 650;
+    margin-bottom: 10px;
+    color: #3e2b2b; /* Dark brown */
+}
+
+.farmer-info-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 14px;
+    color: #4e342e; /* Dark brown */
+    position: relative;
+    z-index: 1; /* above ::before */
+}
+
+.label {
+    font-weight: 600;
+    margin-right: 4px;
+}
+
+/* ===== LIVESTOCK SECTION ===== */
+
+.livestock-section {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 16px 18px 20px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(205, 223, 204, 0.9);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 18px;
+}
+
+.livestock-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(139, 69, 19, 0.1), transparent 65%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.livestock-header {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.section-subtitle {
+    font-size: 12px;
+    color: #5e4a3d; /* Darker brown */
+}
+
+.table-wrapper {
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+/* ===== TABLE ===== */
+
+.livestock-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.livestock-table thead {
+    background: linear-gradient(120deg, #e6f5e6, #f3fbf3);
+}
+
+.livestock-table th,
+.livestock-table td {
+    border: 1px solid #d0e0d0;
+    padding: 9px 10px;
+    text-align: left;
+}
+
+.livestock-table th {
+    font-weight: 600;
+    color: #3e2b2b;
+    font-size: 13px;
+}
+
+.livestock-table tbody tr:nth-child(even) {
+    background-color: #f8fbf7;
+}
+
+.livestock-table tbody tr:hover {
+    background-color: #f1f8ee;
+}
+
+/* Empty state row */
+.empty-row {
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding: 12px 0;
+}
+
+/* ===== EDITABLE INPUTS ===== */
+
+.cell-input {
+    width: 100%;
+    padding: 6px 7px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid #cbd9cb;
+    background-color: #fbfffb;
+    transition:
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background-color 0.18s ease;
+}
+
+.cell-input:focus {
+    outline: none;
+    border-color: #6c4f3d;
+    box-shadow: 0 0 0 1px rgba(76, 175, 80, 0.16);
+    background-color: #ffffff;
+}
+
+/* ===== EDIT ACTION BUTTONS ROW ===== */
+
+.edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== DELETE COLUMN + BUTTON IN TABLE ===== */
+
+.action-col {
+    width: 36px;
+    text-align: center;
+}
+
+.livestock-table td:first-child {
+    text-align: center;
+}
+
+.row-delete-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    border: 1px solid #f5b3af;
+    background-color: #fbeaea;
+    color: #c62828;
+    font-size: 14px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition:
+        background-color 0.15s ease,
+        transform 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+.row-delete-btn:hover {
+    background-color: #f9d6d2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+    transform: translateY(-1px);
+}
+
+.row-delete-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== HIGH VALUE DATA PANEL ===== */
+
+.high-value-section {
+    margin-top: 18px;
+}
+
+.right-panel {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 16px 18px 20px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(205, 223, 204, 0.9);
+    position: relative;
+    overflow: hidden;
+}
+
+.right-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at bottom right, rgba(139, 69, 19, 0.1), transparent 65%);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.right-panel h3 {
+    font-size: 15px;
+    font-weight: 650;
+    margin-bottom: 10px;
+    color: #3e2b2b;
+    position: relative;
+    z-index: 1;
+}
+
+/* High Value table */
+.right-panel table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.right-panel thead {
+    background: linear-gradient(120deg, #e9f6ea, #f5fbf5);
+}
+
+.right-panel th,
+.right-panel td {
+    border: 1px solid #d0e0d0;
+    padding: 7px 8px;
+    text-align: left;
+}
+
+.right-panel th {
+    font-weight: 600;
+    color: #274427;
+    font-size: 12px;
+}
+
+.right-panel tbody tr:nth-child(even) {
+    background-color: #f8fbf7;
+}
+
+/* Summary labels + inputs */
+.right-panel label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #3a513a;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    position: relative;
+    z-index: 1;
+}
+
+.right-panel input[type="text"] {
+    width: 100%;
+    padding: 6px 7px;
+    font-size: 13px;
+    border-radius: 6px;
+    border: 1px solid #cbd9cb;
+    background-color: #f9fff9;
+    color: #273727;
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+}
+
+.right-panel input[type="text"]:disabled {
+    background-color: #f3faf3;
+    color: #4a614a;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .main-container {
+        margin-top: 95px;
+        padding: 0 12px;
+    }
+
+    .title {
+        font-size: 18px;
+    }
+
+    .farmer-info-row {
+        flex-direction: column;
+    }
+
+    .header {
+        padding: 10px 14px;
+    }
+
+    .right-panel {
+        margin-top: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        margin-top: 100px;
+        padding: 0 10px;
+    }
+
+    .title {
+        font-size: 17px;
+    }
+
+    .btn {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+}

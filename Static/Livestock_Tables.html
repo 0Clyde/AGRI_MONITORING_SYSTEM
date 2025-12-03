@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livestock - Barangay Overview</title>
+
+    <!-- Optional: nicer font to match dashboard feel -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="Livestock_Tables.css">
+</head>
+<body>
+    
+    <!-- ===== PAGE WRAPPER (centers content) ===== -->
+    <div class="page-wrapper">
+
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo-container">
+                    <img src="livestock.png" alt="Livestock Logo" class="logo">
+                </div>
+                <div class="header-text-group">
+                    <h1 class="title">Livestock - Barangay Overview</h1>
+                    <p class="subtitle">Select a barangay to view its livestock summary and details.</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="home-btn" onclick="goToInterface()" title="Back to Home">🏠</button>
+            </div>
+        </header>
+
+        <!-- ===== SEARCH BAR =====
+        <section class="search-container">
+            <label for="searchInput" class="search-label">Search Barangay</label>
+            <div class="search-input-wrapper">
+                <span class="search-icon">🔍</span>
+                <input
+                    type="text"
+                    class="search-input"
+                    id="searchInput"
+                    placeholder="Type barangay name..."
+                    oninput="filterBarangays()"
+                >
+            </div>
+        </section> -->
+        
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main-content">
+            <div class="section-header">
+                <h2 class="section-title">Barangay List</h2>
+                <p class="section-subtitle">Click a barangay to open its livestock overview.</p>
+            </div>
+
+            <div class="barangay-grid" id="barangayGrid">
+                <!-- Each item: click → openOverview(barangayName) -->
+                <div class="barangay-item" onclick="openOverview('Anao')">
+                    <span class="barangay-name">Anao</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Looc')">
+                    <span class="barangay-name">Looc</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Cagsing')">
+                    <span class="barangay-name">Cagsing</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Malatbo')">
+                    <span class="barangay-name">Malatbo</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Calabawan')">
+                    <span class="barangay-name">Calabawan</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Mangaco')">
+                    <span class="barangay-name">Mangaco</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Cambagte')">
+                    <span class="barangay-name">Cambagte</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Palanas')">
+                    <span class="barangay-name">Palanas</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Campisong')">
+                    <span class="barangay-name">Campisong</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Poblacion')">
+                    <span class="barangay-name">Poblacion</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Canorong')">
+                    <span class="barangay-name">Cañorong</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Salamanca')">
+                    <span class="barangay-name">Salamanca</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('Guiwanon')">
+                    <span class="barangay-name">Guiwanon</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+                <div class="barangay-item" onclick="openOverview('San Roque')">
+                    <span class="barangay-name">San Roque</span>
+                    <span class="barangay-tag">View Overview →</span>
+                </div>
+            </div>
+        </main>
+
+             <footer>
+    <div class="footer-content">
+       <h7> <p>&copy; 2025 Cebu Technological Campus-Ginatilan Extension. All rights reserved.</p></h7>
+        <h7><p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p></h7>
+    </div>
+
+    </div><!-- /page-wrapper -->
+
+    <!-- ===== SCRIPTS ===== -->
+    <script>
+        // Go back to your main interface/home page
+        function goToInterface() {
+            window.location.href = "Interface.html";
+        }
+
+        // Open the livestock overview for the selected barangay
+        function openOverview(barangay) {
+            const url = "Livestock_Overview.html?barangay=" + encodeURIComponent(barangay);
+            window.location.href = url;
+        }
+
+        // Simple client-side filter for the barangay grid
+        function filterBarangays() {
+            const input = document.getElementById("searchInput");
+            const filter = input.value.toLowerCase();
+            const grid = document.getElementById("barangayGrid");
+            const items = grid.getElementsByClassName("barangay-item");
+
+            for (let i = 0; i < items.length; i++) {
+                const txt = items[i].textContent || items[i].innerText;
+                if (txt.toLowerCase().indexOf(filter) > -1) {
+                    items[i].style.display = "";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+
+</body>
+</html>
