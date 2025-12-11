@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="/Signup.css" />
+</head>
+
+<body>
+    <div class="container">
+        
+        <div class="left-side">
+            <img src="/Ag1.jpg" alt="Logo" />
+        </div>
+
+       
+        <div class="right-side">
+            <div class="login-container">
+              
+                <div class="user-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                        <circle cx="12" cy="8" r="4" />
+                        <path d="M4 20c0-4 4-6 8-6s8 2 8 6" />
+                    </svg>
+                </div>
+
+               
+                <form id="signupForm" action="/RegisterServlet" method="post" class="SignupForm" novalidate>
+                    
+                    <div class="name-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                required
+                                placeholder="Please enter"
+                                pattern="^[A-Za-z\s'\-]+$"
+                                title="Only letters, spaces, apostrophe (') and hyphen (-) are allowed."
+                                autocomplete="given-name"
+                                inputmode="text"
+                            />
+                            <div id="firstNameError" class="field-error" aria-live="polite"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                required
+                                placeholder="Please enter"
+                                pattern="^[A-Za-z\s'\-]+$"
+                                title="Only letters, spaces, apostrophe (') and hyphen (-) are allowed."
+                                autocomplete="family-name"
+                                inputmode="text"
+                            />
+                            <div id="lastNameError" class="field-error" aria-live="polite"></div>
+                        </div>
+                    </div>
+
+                   
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required placeholder="Please enter your username" autocomplete="username" />
+                        <div id="usernameError" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                 
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="Please enter a valid email" autocomplete="email" />
+                        <div id="emailError" class="field-error" aria-live="polite"></div>
+                        <div id="emailTakenError" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                    <div class="form-group password-field">
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                            minlength="10"
+                            maxlength="20"
+                            placeholder="10-20 chars, upper, lower, number, symbol"
+                            autocomplete="new-password"
+                            pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,20}"
+                            title="10-20 characters, include uppercase, lowercase, number and symbol (e.g. @ $ ! % * ? &)."
+                            onpaste="return false"
+                            oncopy="return false"
+                            oncut="return false"
+                            ondrag="return false"
+                            ondrop="return false"
+                        />
+                        <button type="button" id="togglePassword" class="password-toggle-btn" aria-label="Show password" data-target="password">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="eye-icon">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                        <div id="passwordError" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                
+                    <div class="form-group password-field">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            required
+                            placeholder="Confirm password"
+                            autocomplete="new-password"
+                            onpaste="return false"
+                            oncopy="return false"
+                            oncut="return false"
+                            ondrag="return false"
+                            ondrop="return false"
+                        />
+                        <button type="button" class="password-toggle-btn" aria-label="Show confirm password" data-target="confirmPassword">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="eye-icon">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                        <div id="confirmPasswordError" class="field-error" aria-live="polite"></div>
+                    </div>
+
+                   
+                    <button type="submit" class="login-btn">CREATE ACCOUNT</button>
+                </form>
+
+               
+                <div class="error-messages" aria-live="polite">
+                    <p id="error-message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+
+  <script>
+    
+    const signupForm = document.getElementById('signupForm');
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const email = document.getElementById('email');
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+
+    
+    const firstNameError = document.getElementById('firstNameError');
+    const lastNameError = document.getElementById('lastNameError');
+    const emailError = document.getElementById('emailError');
+    const emailTakenError = document.getElementById('emailTakenError');
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+    const generalError = document.getElementById('error-message');
+
+ 
+    const namePattern = /^[A-Za-z\s'\-]+$/;
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,20}$/;
+    const emailPattern = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+   
+    function sanitizeNameInput(e) {
+        const clean = e.target.value.replace(/[^A-Za-z\s'\-]/g, '');
+        if (clean !== e.target.value) {
+            const pos = e.target.selectionStart - 1;
+            e.target.value = clean;
+            e.target.setSelectionRange(pos >= 0 ? pos : 0, pos >= 0 ? pos : 0);
+        }
+    }
+
+    function validateNameField(input, errorElement) {
+        const value = input.value.trim();
+        if (!value) {
+            errorElement.textContent = 'This field is required.';
+            return false;
+        } 
+        if (!/^[A-Za-z\s'\-]+$/.test(value)) {
+            errorElement.textContent = "Only letters, spaces, apostrophe (') and hyphen (-) are allowed.";
+            return false;
+        }
+        errorElement.textContent = '';
+        return true;
+    }
+
+    firstName.addEventListener('input', sanitizeNameInput);
+    lastName.addEventListener('input', sanitizeNameInput);
+    firstName.addEventListener('blur', () => validateNameField(firstName, firstNameError));
+    lastName.addEventListener('blur', () => validateNameField(lastName, lastNameError));
+
+  
+    firstName.addEventListener('paste', (ev) => {
+        const text = (ev.clipboardData || window.clipboardData).getData('text');
+        if (!namePattern.test(text)) {
+            ev.preventDefault();
+            const clean = text.replace(/[^A-Za-z\s'\-]/g, '');
+            const start = firstName.selectionStart || 0;
+            const before = firstName.value.slice(0, start);
+            const after = firstName.value.slice(start);
+            firstName.value = before + clean + after;
+        }
+    });
+
+    lastName.addEventListener('paste', (ev) => {
+        const text = (ev.clipboardData || window.clipboardData).getData('text');
+        if (!namePattern.test(text)) {
+            ev.preventDefault();
+            const clean = text.replace(/[^A-Za-z\s'\-]/g, '');
+            const start = lastName.selectionStart || 0;
+            const before = lastName.value.slice(0, start);
+            const after = lastName.value.slice(start);
+            lastName.value = before + clean + after;
+        }
+    });
+
+    
+    let emailCheckTimeout;
+
+    function validateEmail() {
+        if (!email.value.trim()) {
+            emailError.textContent = 'Email is required.';
+            emailTakenError.textContent = '';
+            return false;
+        }
+        if (!emailPattern.test(email.value.trim())) {
+            emailError.textContent = 'Invalid email format.';
+            emailTakenError.textContent = '';
+            return false;
+        }
+        emailError.textContent = '';
+        return true;
+    }
+
+    email.addEventListener('blur', validateEmail);
+
+   
+    email.addEventListener('input', function() {
+        const emailValue = this.value.trim();
+        
+        clearTimeout(emailCheckTimeout);
+        emailTakenError.textContent = '';
+        
+        if (emailValue && emailPattern.test(emailValue)) {
+            emailCheckTimeout = setTimeout(() => {
+                checkEmailAvailability(emailValue);
+            }, 500);
+        }
+    });
+
+    async function checkEmailAvailability(emailValue) {
+        try {
+            const response = await fetch(`/api/check-email?email=${encodeURIComponent(emailValue)}`);
+            const data = await response.json();
+            
+            if (data.exists) {
+                emailTakenError.textContent = '⚠️ This email is already registered';
+                emailTakenError.style.color = '#b00020';
+            } else {
+                emailTakenError.textContent = '✓ Email is available';
+                emailTakenError.style.color = '#0b8457';
+            }
+        } catch (error) {
+            console.error('Error checking email:', error);
+        }
+    }
+
+    
+    function validateUsername() {
+        if (!username.value.trim()) {
+            usernameError.textContent = 'Username is required.';
+            return false;
+        }
+        usernameError.textContent = '';
+        return true;
+    }
+    username.addEventListener('blur', validateUsername);
+
+  
+    function validatePassword() {
+        if (!password.value) {
+            passwordError.textContent = 'Password is required.';
+            return false;
+        }
+        if (password.value.length < 10 || password.value.length > 20) {
+            passwordError.textContent = 'Password must be 10–20 characters.';
+            return false;
+        }
+        if (!passwordPattern.test(password.value)) {
+            passwordError.textContent = 'Password must include uppercase, lowercase, number and symbol (@$!%*?&).';
+            return false;
+        }
+        passwordError.textContent = '';
+        return true;
+    }
+
+    function validateConfirmPassword() {
+        if (!confirmPassword.value) {
+            confirmPasswordError.textContent = 'Please confirm your password.';
+            return false;
+        }
+        if (password.value !== confirmPassword.value) {
+            confirmPasswordError.textContent = 'Passwords do not match.';
+            return false;
+        }
+        confirmPasswordError.textContent = '';
+        return true;
+    }
+
+    password.addEventListener('input', () => {
+        validatePassword();
+        if (confirmPassword.value) validateConfirmPassword();
+    });
+    confirmPassword.addEventListener('input', validateConfirmPassword);
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButtons = document.querySelectorAll('.password-toggle-btn');
+        
+        toggleButtons.forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const targetId = this.getAttribute('data-target');
+                const targetInput = document.getElementById(targetId);
+                const eyeIcon = this.querySelector('.eye-icon');
+                
+                if (!targetInput || !eyeIcon) {
+                    console.error('Target input or eye icon not found for:', targetId);
+                    return;
+                }
+                
+                
+                if (targetInput.type === 'password') {
+                    targetInput.type = 'text';
+                    eyeIcon.innerHTML = `
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23" stroke="#333" stroke-width="1.6"></line>
+                    `;
+                    this.setAttribute('aria-label', 'Hide password');
+                } else {
+                    targetInput.type = 'password';
+                    eyeIcon.innerHTML = `
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    `;
+                    this.setAttribute('aria-label', 'Show password');
+                }
+            });
+        });
+    });
+
+    
+    signupForm.addEventListener('submit', function (e) {
+        generalError.textContent = '';
+        
+        const v1 = validateNameField(firstName, firstNameError);
+        const v2 = validateNameField(lastName, lastNameError);
+        const v3 = validateUsername();
+        const v4 = validateEmail();
+        const v5 = validatePassword();
+        const v6 = validateConfirmPassword();
+
+      
+        const emailTaken = emailTakenError.textContent.includes('already registered');
+
+        if (!(v1 && v2 && v3 && v4 && v5 && v6) || emailTaken) {
+            e.preventDefault();
+            generalError.textContent = emailTaken ? 'Email is already registered' : 'Please fix the errors above before continuing.';
+            return false;
+        }
+
+        return true;
+    });
+
+    
+    window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("created") === "true") {
+            alert("Account successfully created!");
+            window.location.href = "/login";
+        }
+    };
+</script>
+</body>
+</html>

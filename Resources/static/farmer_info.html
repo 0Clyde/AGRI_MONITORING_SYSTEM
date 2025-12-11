@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Farmer Info</title>
+    <link rel="stylesheet" href="Crop_fillup.css">
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Edit Farmer Info</h1>
+        <button class="back-btn" onclick="window.history.back()">Back</button>
+    </div>
+
+    <div class="form-container">
+        <div class="left-section">
+            <div class="form-group">
+                <label>Farmer Name</label>
+                <input type="text" id="farmerName" required>
+            </div>
+            <div class="form-group">
+                <label>Contact</label>
+                <input type="text" id="contact">
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age">
+            </div>
+            <div class="form-group">
+                <label>Sex</label>
+                <input type="text" id="sex">
+            </div>
+        </div>
+
+        <div class="right-section">
+            <div class="high-value-header">High Value Data</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Area (hectares)</th>
+                        <th>Harvest (kg)</th>
+                        <th>Fertilizer Used</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Corn</td><td><input id="cornArea" type="number" step="0.01"></td><td><input id="cornHarvest" type="number" step="0.01"></td><td><input id="cornFertilizer" type="text"></td></tr>
+                    <tr><td>Tomato</td><td><input id="tomatoArea" type="number" step="0.01"></td><td><input id="tomatoHarvest" type="number" step="0.01"></td><td><input id="tomatoFertilizer" type="text"></td></tr>
+                    <tr><td>Eggplant</td><td><input id="eggplantArea" type="number" step="0.01"></td><td><input id="eggplantHarvest" type="number" step="0.01"></td><td><input id="eggplantFertilizer" type="text"></td></tr>
+                    <tr><td>Bellpepper</td><td><input id="bellpepperArea" type="number" step="0.01"></td><td><input id="bellpepperHarvest" type="number" step="0.01"></td><td><input id="bellpepperFertilizer" type="text"></td></tr>
+                    <tr><td>Squash</td><td><input id="squashArea" type="number" step="0.01"></td><td><input id="squashHarvest" type="number" step="0.01"></td><td><input id="squashFertilizer" type="text"></td></tr>
+                    <tr><td>Okra</td><td><input id="okraArea" type="number" step="0.01"></td><td><input id="okraHarvest" type="number" step="0.01"></td><td><input id="okraFertilizer" type="text"></td></tr>
+                    <tr><td>Cucumber</td><td><input id="cucumberArea" type="number" step="0.01"></td><td><input id="cucumberHarvest" type="number" step="0.01"></td><td><input id="cucumberFertilizer" type="text"></td></tr>
+                    <tr><td>String Beans</td><td><input id="stringbeansArea" type="number" step="0.01"></td><td><input id="stringbeansHarvest" type="number" step="0.01"></td><td><input id="stringbeansFertilizer" type="text"></td></tr>
+                    <tr><td>Sweetpotato</td><td><input id="sweetpotatoArea" type="number" step="0.01"></td><td><input id="sweetpotatoHarvest" type="number" step="0.01"></td><td><input id="sweetpotatoFertilizer" type="text"></td></tr>
+                    <tr><td>Potato</td><td><input id="potatoArea" type="number" step="0.01"></td><td><input id="potatoHarvest" type="number" step="0.01"></td><td><input id="potatoFertilizer" type="text"></td></tr>
+                    <tr><td>Spinach</td><td><input id="spinachArea" type="number" step="0.01"></td><td><input id="spinachHarvest" type="number" step="0.01"></td><td><input id="spinachFertilizer" type="text"></td></tr>
+                    <tr><td>Kangkong</td><td><input id="kangkongArea" type="number" step="0.01"></td><td><input id="kangkongHarvest" type="number" step="0.01"></td><td><input id="kangkongFertilizer" type="text"></td></tr>
+                    <tr><td>Carrots</td><td><input id="carrotsArea" type="number" step="0.01"></td><td><input id="carrotsHarvest" type="number" step="0.01"></td><td><input id="carrotsFertilizer" type="text"></td></tr>
+                    <tr><td>Ampalaya</td><td><input id="ampalayaArea" type="number" step="0.01"></td><td><input id="ampalayaHarvest" type="number" step="0.01"></td><td><input id="ampalayaFertilizer" type="text"></td></tr>
+                    <tr><td>Malunggay</td><td><input id="malunggayArea" type="number" step="0.01"></td><td><input id="malunggayHarvest" type="number" step="0.01"></td><td><input id="malunggayFertilizer" type="text"></td></tr>
+                    <tr><td>Cassava</td><td><input id="cassavaArea" type="number" step="0.01"></td><td><input id="cassavaHarvest" type="number" step="0.01"></td><td><input id="cassavaFertilizer" type="text"></td></tr>
+                    <tr><td>Cabbage</td><td><input id="cabbageArea" type="number" step="0.01"></td><td><input id="cabbageHarvest" type="number" step="0.01"></td><td><input id="cabbageFertilizer" type="text"></td></tr>
+                    <tr><td>Lettuce</td><td><input id="lettuceArea" type="number" step="0.01"></td><td><input id="lettuceHarvest" type="number" step="0.01"></td><td><input id="lettuceFertilizer" type="text"></td></tr>
+                    <tr><td>Baguio Beans</td><td><input id="baguiobeansArea" type="number" step="0.01"></td><td><input id="baguiobeansHarvest" type="number" step="0.01"></td><td><input id="baguiobeansFertilizer" type="text"></td></tr>
+                    <tr><td>Cauliflower</td><td><input id="cauliflowerArea" type="number" step="0.01"></td><td><input id="cauliflowerHarvest" type="number" step="0.01"></td><td><input id="cauliflowerFertilizer" type="text"></td></tr>
+                    <tr><td>Onion</td><td><input id="onionArea" type="number" step="0.01"></td><td><input id="onionHarvest" type="number" step="0.01"></td><td><input id="onionFertilizer" type="text"></td></tr>
+                    <tr><td>Spring Onion</td><td><input id="springonionArea" type="number" step="0.01"></td><td><input id="springonionHarvest" type="number" step="0.01"></td><td><input id="springonionFertilizer" type="text"></td></tr>
+                    <tr><td>Garlic</td><td><input id="garlicArea" type="number" step="0.01"></td><td><input id="garlicHarvest" type="number" step="0.01"></td><td><input id="garlicFertilizer" type="text"></td></tr>
+                    <tr><td>Ginger</td><td><input id="gingerArea" type="number" step="0.01"></td><td><input id="gingerHarvest" type="number" step="0.01"></td><td><input id="gingerFertilizer" type="text"></td></tr>
+                </tbody>
+            </table>
+
+            <div class="bottom-fields">
+                <div class="bottom-field">
+                    <label>Total Area Planted</label>
+                    <input type="number" id="totalAreaPlanted" step="0.01">
+                </div>
+                <div class="bottom-field">
+                    <label>Pesticide Use</label>
+                    <input type="text" id="pesticideUsed">
+                </div>
+                <div class="bottom-field">
+                    <label>Fertilizer Used</label>
+                    <input type="text" id="fertilizerUsed">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="save-btn-container">
+        <button class="save-btn" id="updateBtn" style="background-color: #4CAF50;">Update</button>
+        <button class="save-btn" id="deleteBtn" style="background-color: #f44336; margin-left: 10px;">Delete</button>
+    </div>
+</div>
+
+<script>
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+
+    if (!barangay || !farmerId) {
+        alert("Missing barangay or farmer ID");
+        window.history.back();
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/crops/${barangay}/${farmerId}`);
+        if (!response.ok) {
+            throw new Error("Failed to load farmer data");
+        }
+        
+        const farmer = await response.json();
+        
+        
+        document.getElementById("farmerName").value = farmer.farmer_name || "";
+        document.getElementById("contact").value = farmer.contact || "";
+        document.getElementById("age").value = farmer.age || "";
+        document.getElementById("sex").value = farmer.sex || "";
+        
+        document.getElementById("cornArea").value = farmer.corn_area || "";
+        document.getElementById("cornHarvest").value = farmer.corn_harvest || "";
+        document.getElementById("cornFertilizer").value = farmer.corn_fertilizer || "";
+        
+        document.getElementById("tomatoArea").value = farmer.tomato_area || "";
+        document.getElementById("tomatoHarvest").value = farmer.tomato_harvest || "";
+        document.getElementById("tomatoFertilizer").value = farmer.tomato_fertilizer || "";
+        
+        document.getElementById("eggplantArea").value = farmer.eggplant_area || "";
+        document.getElementById("eggplantHarvest").value = farmer.eggplant_harvest || "";
+        document.getElementById("eggplantFertilizer").value = farmer.eggplant_fertilizer || "";
+        
+        document.getElementById("bellpepperArea").value = farmer.bellpepper_area || "";
+        document.getElementById("bellpepperHarvest").value = farmer.bellpepper_harvest || "";
+        document.getElementById("bellpepperFertilizer").value = farmer.bellpepper_fertilizer || "";
+        
+        document.getElementById("squashArea").value = farmer.squash_area || "";
+        document.getElementById("squashHarvest").value = farmer.squash_harvest || "";
+        document.getElementById("squashFertilizer").value = farmer.squash_fertilizer || "";
+        
+        document.getElementById("okraArea").value = farmer.okra_area || "";
+        document.getElementById("okraHarvest").value = farmer.okra_harvest || "";
+        document.getElementById("okraFertilizer").value = farmer.okra_fertilizer || "";
+        
+        document.getElementById("cucumberArea").value = farmer.cucumber_area || "";
+        document.getElementById("cucumberHarvest").value = farmer.cucumber_harvest || "";
+        document.getElementById("cucumberFertilizer").value = farmer.cucumber_fertilizer || "";
+        
+        document.getElementById("stringbeansArea").value = farmer.stringbeans_area || "";
+        document.getElementById("stringbeansHarvest").value = farmer.stringbeans_harvest || "";
+        document.getElementById("stringbeansFertilizer").value = farmer.stringbeans_fertilizer || "";
+        
+        document.getElementById("sweetpotatoArea").value = farmer.sweet_potatoes_area || "";
+        document.getElementById("sweetpotatoHarvest").value = farmer.sweet_potatoes_harvest || "";
+        document.getElementById("sweetpotatoFertilizer").value = farmer.sweet_potatoes_fertilizer || "";
+        
+        document.getElementById("potatoArea").value = farmer.potato_area || "";
+        document.getElementById("potatoHarvest").value = farmer.potato_harvest || "";
+        document.getElementById("potatoFertilizer").value = farmer.potato_fertilizer || "";
+        
+        document.getElementById("spinachArea").value = farmer.spinach_area || "";
+        document.getElementById("spinachHarvest").value = farmer.spinach_harvest || "";
+        document.getElementById("spinachFertilizer").value = farmer.spinach_fertilizer || "";
+        
+        document.getElementById("kangkongArea").value = farmer.kangkong_area || "";
+        document.getElementById("kangkongHarvest").value = farmer.kangkong_harvest || "";
+        document.getElementById("kangkongFertilizer").value = farmer.kangkong_fertilizer || "";
+        
+        document.getElementById("carrotsArea").value = farmer.carrots_area || "";
+        document.getElementById("carrotsHarvest").value = farmer.carrots_harvest || "";
+        document.getElementById("carrotsFertilizer").value = farmer.carrots_fertilizer || "";
+        
+        document.getElementById("ampalayaArea").value = farmer.ampalaya_area || "";
+        document.getElementById("ampalayaHarvest").value = farmer.ampalaya_harvest || "";
+        document.getElementById("ampalayaFertilizer").value = farmer.ampalaya_fertilizer || "";
+        
+        document.getElementById("malunggayArea").value = farmer.malunggay_area || "";
+        document.getElementById("malunggayHarvest").value = farmer.malunggay_harvest || "";
+        document.getElementById("malunggayFertilizer").value = farmer.malunggay_fertilizer || "";
+        
+        document.getElementById("cassavaArea").value = farmer.cassava_area || "";
+        document.getElementById("cassavaHarvest").value = farmer.cassava_harvest || "";
+        document.getElementById("cassavaFertilizer").value = farmer.cassava_fertilizer || "";
+        
+        document.getElementById("cabbageArea").value = farmer.cabbage_area || "";
+        document.getElementById("cabbageHarvest").value = farmer.cabbage_harvest || "";
+        document.getElementById("cabbageFertilizer").value = farmer.cabbage_fertilizer || "";
+        
+        document.getElementById("lettuceArea").value = farmer.lettuce_area || "";
+        document.getElementById("lettuceHarvest").value = farmer.lettuce_harvest || "";
+        document.getElementById("lettuceFertilizer").value = farmer.lettuce_fertilizer || "";
+        
+        document.getElementById("baguiobeansArea").value = farmer.baguio_beans_area || "";
+        document.getElementById("baguiobeansHarvest").value = farmer.baguio_beans_harvest || "";
+        document.getElementById("baguiobeansFertilizer").value = farmer.baguio_beans_fertilizer || "";
+        
+        document.getElementById("cauliflowerArea").value = farmer.cauliflower_area || "";
+        document.getElementById("cauliflowerHarvest").value = farmer.cauliflower_harvest || "";
+        document.getElementById("cauliflowerFertilizer").value = farmer.cauliflower_fertilizer || "";
+        
+        document.getElementById("onionArea").value = farmer.onion_area || "";
+        document.getElementById("onionHarvest").value = farmer.onion_harvest || "";
+        document.getElementById("onionFertilizer").value = farmer.onion_fertilizer || "";
+        
+        document.getElementById("springonionArea").value = farmer.spring_onion_area || "";
+        document.getElementById("springonionHarvest").value = farmer.spring_onion_harvest || "";
+        document.getElementById("springonionFertilizer").value = farmer.spring_onion_fertilizer || "";
+        
+        document.getElementById("garlicArea").value = farmer.garlic_area || "";
+        document.getElementById("garlicHarvest").value = farmer.garlic_harvest || "";
+        document.getElementById("garlicFertilizer").value = farmer.garlic_fertilizer || "";
+        
+        document.getElementById("gingerArea").value = farmer.ginger_area || "";
+        document.getElementById("gingerHarvest").value = farmer.ginger_harvest || "";
+        document.getElementById("gingerFertilizer").value = farmer.ginger_fertilizer || "";
+        
+        document.getElementById("totalAreaPlanted").value = farmer.total_area_planted || "";
+        document.getElementById("pesticideUsed").value = farmer.pesticide_used || "";
+        document.getElementById("fertilizerUsed").value = farmer.fertilizer_used || "";
+        
+    } catch (error) {
+        console.error("Error loading farmer data:", error);
+        alert("Failed to load farmer data");
+    }
+});
+
+document.getElementById("updateBtn").addEventListener("click", async () => {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+
+    
+    const cropData = {
+        farmer_name: document.getElementById("farmerName").value,
+        contact: document.getElementById("contact").value,
+        age: document.getElementById("age").value ? parseInt(document.getElementById("age").value) : null,
+        sex: document.getElementById("sex").value,
+        
+        corn_area: document.getElementById("cornArea").value ? parseFloat(document.getElementById("cornArea").value) : null,
+        corn_harvest: document.getElementById("cornHarvest").value ? parseFloat(document.getElementById("cornHarvest").value) : null,
+        corn_fertilizer: document.getElementById("cornFertilizer").value,
+        
+        tomato_area: document.getElementById("tomatoArea").value ? parseFloat(document.getElementById("tomatoArea").value) : null,
+        tomato_harvest: document.getElementById("tomatoHarvest").value ? parseFloat(document.getElementById("tomatoHarvest").value) : null,
+        tomato_fertilizer: document.getElementById("tomatoFertilizer").value,
+        
+        eggplant_area: document.getElementById("eggplantArea").value ? parseFloat(document.getElementById("eggplantArea").value) : null,
+        eggplant_harvest: document.getElementById("eggplantHarvest").value ? parseFloat(document.getElementById("eggplantHarvest").value) : null,
+        eggplant_fertilizer: document.getElementById("eggplantFertilizer").value,
+        
+        bellpepper_area: document.getElementById("bellpepperArea").value ? parseFloat(document.getElementById("bellpepperArea").value) : null,
+        bellpepper_harvest: document.getElementById("bellpepperHarvest").value ? parseFloat(document.getElementById("bellpepperHarvest").value) : null,
+        bellpepper_fertilizer: document.getElementById("bellpepperFertilizer").value,
+        
+        squash_area: document.getElementById("squashArea").value ? parseFloat(document.getElementById("squashArea").value) : null,
+        squash_harvest: document.getElementById("squashHarvest").value ? parseFloat(document.getElementById("squashHarvest").value) : null,
+        squash_fertilizer: document.getElementById("squashFertilizer").value,
+        
+        okra_area: document.getElementById("okraArea").value ? parseFloat(document.getElementById("okraArea").value) : null,
+        okra_harvest: document.getElementById("okraHarvest").value ? parseFloat(document.getElementById("okraHarvest").value) : null,
+        okra_fertilizer: document.getElementById("okraFertilizer").value,
+        
+        cucumber_area: document.getElementById("cucumberArea").value ? parseFloat(document.getElementById("cucumberArea").value) : null,
+        cucumber_harvest: document.getElementById("cucumberHarvest").value ? parseFloat(document.getElementById("cucumberHarvest").value) : null,
+        cucumber_fertilizer: document.getElementById("cucumberFertilizer").value,
+        
+        stringbeans_area: document.getElementById("stringbeansArea").value ? parseFloat(document.getElementById("stringbeansArea").value) : null,
+        stringbeans_harvest: document.getElementById("stringbeansHarvest").value ? parseFloat(document.getElementById("stringbeansHarvest").value) : null,
+        stringbeans_fertilizer: document.getElementById("stringbeansFertilizer").value,
+        
+        sweet_potatoes_area: document.getElementById("sweetpotatoArea").value ? parseFloat(document.getElementById("sweetpotatoArea").value) : null,
+        sweet_potatoes_harvest: document.getElementById("sweetpotatoHarvest").value ? parseFloat(document.getElementById("sweetpotatoHarvest").value) : null,
+        sweet_potatoes_fertilizer: document.getElementById("sweetpotatoFertilizer").value,
+        
+        potato_area: document.getElementById("potatoArea").value ? parseFloat(document.getElementById("potatoArea").value) : null,
+        potato_harvest: document.getElementById("potatoHarvest").value ? parseFloat(document.getElementById("potatoHarvest").value) : null,
+        potato_fertilizer: document.getElementById("potatoFertilizer").value,
+        
+        spinach_area: document.getElementById("spinachArea").value ? parseFloat(document.getElementById("spinachArea").value) : null,
+        spinach_harvest: document.getElementById("spinachHarvest").value ? parseFloat(document.getElementById("spinachHarvest").value) : null,
+        spinach_fertilizer: document.getElementById("spinachFertilizer").value,
+        
+        kangkong_area: document.getElementById("kangkongArea").value ? parseFloat(document.getElementById("kangkongArea").value) : null,
+        kangkong_harvest: document.getElementById("kangkongHarvest").value ? parseFloat(document.getElementById("kangkongHarvest").value) : null,
+        kangkong_fertilizer: document.getElementById("kangkongFertilizer").value,
+        
+        carrots_area: document.getElementById("carrotsArea").value ? parseFloat(document.getElementById("carrotsArea").value) : null,
+        carrots_harvest: document.getElementById("carrotsHarvest").value ? parseFloat(document.getElementById("carrotsHarvest").value) : null,
+        carrots_fertilizer: document.getElementById("carrotsFertilizer").value,
+        
+        ampalaya_area: document.getElementById("ampalayaArea").value ? parseFloat(document.getElementById("ampalayaArea").value) : null,
+        ampalaya_harvest: document.getElementById("ampalayaHarvest").value ? parseFloat(document.getElementById("ampalayaHarvest").value) : null,
+        ampalaya_fertilizer: document.getElementById("ampalayaFertilizer").value,
+        
+        malunggay_area: document.getElementById("malunggayArea").value ? parseFloat(document.getElementById("malunggayArea").value) : null,
+        malunggay_harvest: document.getElementById("malunggayHarvest").value ? parseFloat(document.getElementById("malunggayHarvest").value) : null,
+        malunggay_fertilizer: document.getElementById("malunggayFertilizer").value,
+        
+        cassava_area: document.getElementById("cassavaArea").value ? parseFloat(document.getElementById("cassavaArea").value) : null,
+        cassava_harvest: document.getElementById("cassavaHarvest").value ? parseFloat(document.getElementById("cassavaHarvest").value) : null,
+        cassava_fertilizer: document.getElementById("cassavaFertilizer").value,
+        
+        cabbage_area: document.getElementById("cabbageArea").value ? parseFloat(document.getElementById("cabbageArea").value) : null,
+        cabbage_harvest: document.getElementById("cabbageHarvest").value ? parseFloat(document.getElementById("cabbageHarvest").value) : null,
+        cabbage_fertilizer: document.getElementById("cabbageFertilizer").value,
+        
+        lettuce_area: document.getElementById("lettuceArea").value ? parseFloat(document.getElementById("lettuceArea").value) : null,
+        lettuce_harvest: document.getElementById("lettuceHarvest").value ? parseFloat(document.getElementById("lettuceHarvest").value) : null,
+        lettuce_fertilizer: document.getElementById("lettuceFertilizer").value,
+        
+        baguio_beans_area: document.getElementById("baguiobeansArea").value ? parseFloat(document.getElementById("baguiobeansArea").value) : null,
+        baguio_beans_harvest: document.getElementById("baguiobeansHarvest").value ? parseFloat(document.getElementById("baguiobeansHarvest").value) : null,
+        baguio_beans_fertilizer: document.getElementById("baguiobeansFertilizer").value,
+        
+        cauliflower_area: document.getElementById("cauliflowerArea").value ? parseFloat(document.getElementById("cauliflowerArea").value) : null,
+        cauliflower_harvest: document.getElementById("cauliflowerHarvest").value ? parseFloat(document.getElementById("cauliflowerHarvest").value) : null,
+        cauliflower_fertilizer: document.getElementById("cauliflowerFertilizer").value,
+        
+        onion_area: document.getElementById("onionArea").value ? parseFloat(document.getElementById("onionArea").value) : null,
+        onion_harvest: document.getElementById("onionHarvest").value ? parseFloat(document.getElementById("onionHarvest").value) : null,
+        onion_fertilizer: document.getElementById("onionFertilizer").value,
+        
+        spring_onion_area: document.getElementById("springonionArea").value ? parseFloat(document.getElementById("springonionArea").value) : null,
+        spring_onion_harvest: document.getElementById("springonionHarvest").value ? parseFloat(document.getElementById("springonionHarvest").value) : null,
+        spring_onion_fertilizer: document.getElementById("springonionFertilizer").value,
+        
+        garlic_area: document.getElementById("garlicArea").value ? parseFloat(document.getElementById("garlicArea").value) : null,
+        garlic_harvest: document.getElementById("garlicHarvest").value ? parseFloat(document.getElementById("garlicHarvest").value) : null,
+        garlic_fertilizer: document.getElementById("garlicFertilizer").value,
+        
+        ginger_area: document.getElementById("gingerArea").value ? parseFloat(document.getElementById("gingerArea").value) : null,
+        ginger_harvest: document.getElementById("gingerHarvest").value ? parseFloat(document.getElementById("gingerHarvest").value) : null,
+        ginger_fertilizer: document.getElementById("gingerFertilizer").value,
+        
+        total_area_planted: document.getElementById("totalAreaPlanted").value ? parseFloat(document.getElementById("totalAreaPlanted").value) : null,
+        pesticide_used: document.getElementById("pesticideUsed").value,
+        fertilizer_used: document.getElementById("fertilizerUsed").value
+    };
+
+    try {
+        const response = await fetch(`/api/crops/${barangay}/${farmerId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(cropData)
+        });
+
+        if (response.ok) {
+            alert("Data updated successfully!");
+            window.location.href = `Crops_Overview.html?barangay=${barangay}`;
+        } else {
+            const errorText = await response.text();
+            alert("Failed to update data: " + errorText);
+            console.error("Error response:", errorText);
+        }
+    } catch (error) {
+        console.error("Error updating data:", error);
+        alert("An error occurred while updating data.");
+    }
+});
+
+document.getElementById("deleteBtn").addEventListener("click", async () => {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+
+    if (!confirm("Are you sure you want to delete this farmer's information?")) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/crops/${barangay}/${farmerId}`, {
+            method: "DELETE"
+        });
+
+        if (response.ok) {
+            alert("Data deleted successfully!");
+            window.location.href = `Crops_Overview.html?barangay=${barangay}`;
+        } else {
+            alert("Failed to delete data.");
+        }
+    } catch (error) {
+        console.error("Error deleting data:", error);
+        alert("An error occurred while deleting data.");
+    }
+});
+</script>
+</body>
+</html>

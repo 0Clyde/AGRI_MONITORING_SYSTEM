@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Crops Details</title>
+    <link rel="stylesheet" href="Farmer_details.css">
+</head>
+<body>
+
+<header class="header">
+    <button class="back-btn" onclick="goBack()">←</button>
+    <h1 class="title" id="farmerTitle">Farmer – Crops Details</h1>
+
+    <div class="header-actions">
+        <button class="btn secondary" id="editBtn">Edit</button>
+    </div>
+</header>
+
+<main class="main-container">
+ 
+    <section class="farmer-info-card">
+        <h2 class="section-title">Farmer Information</h2>
+        <div class="farmer-info-row">
+            <div>
+                <span class="label">Name:</span>
+                <span id="farmerName">—</span>
+            </div>
+            <div>
+                <span class="label">Contact:</span>
+                <span id="farmerContact">—</span>
+            </div>
+            <div>
+                <span class="label">Age:</span>
+                <span id="farmerAge">—</span>
+            </div>
+            <div>
+                <span class="label">Sex:</span>
+                <span id="farmerSex">—</span>
+            </div>
+            <div>
+                <span class="label">Barangay:</span>
+                <span id="farmerBarangay">—</span>
+            </div>
+            <div>
+                <span class="label">Farmer ID:</span>
+                <span id="farmerIdLabel">—</span>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="crops-section">
+        <div class="crops-header">
+            <h2 class="section-title">Crops and Details</h2>
+            <span class="section-subtitle">Shows list of crops, area, harvest, and fertilizer used.</span>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="crops-table">
+                <thead>
+                    <tr>
+                        <th>Crop</th>
+                        <th>Area (ha)</th>
+                        <th>Harvest (kg)</th>
+                        <th>Fertilizer Used</th>
+                    </tr>
+                </thead>
+                <tbody id="cropsTableBody">
+                 
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+>
+    <section class="high-value-section">
+        <div class="right-panel">
+            <h3>High Value Data</h3>
+
+            <label>Total Area Planted:</label>
+            <input type="text" id="totalAreaPlanted" disabled>
+
+            <label>Pesticide Used:</label>
+            <input type="text" id="pesticideUsed" disabled>
+
+            <label>Fertilizer Used:</label>
+            <input type="text" id="fertilizerUsed" disabled>
+        </div>
+    </section>
+</main>
+
+<script>
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function goBack() {
+    const barangay = getQueryParam("barangay") || "";
+    if (barangay) {
+        window.location.href = `Crops_Overview.html?barangay=${encodeURIComponent(barangay)}`;
+    } else {
+        window.history.back();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const barangay = getQueryParam("barangay") || "";
+    const farmerId = getQueryParam("farmerId") || "";
+    
+    if (!barangay || !farmerId) {
+        alert("Missing barangay or farmer ID!");
+        return;
+    }
+    
+    await loadFarmerDetails(barangay, farmerId);
+});
+
+
+document.getElementById("editBtn").addEventListener("click", () => {
+    const barangay = getQueryParam("barangay") || "";
+    const farmerId = getQueryParam("farmerId") || "";
+    
+
+    window.location.href = `Crops_edit.html?barangay=${encodeURIComponent(barangay)}&farmerId=${encodeURIComponent(farmerId)}`;
+});
+
+async function loadFarmerDetails(barangayParam, farmerIdParam) {
+    const tbody = document.getElementById("cropsTableBody");
+
+    try {
+        console.log(`Fetching farmer ${farmerIdParam} in barangay ${barangayParam}`);
+        const response = await fetch(`/api/crops/${barangayParam}/${farmerIdParam}`);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to load farmer crops: ${response.statusText}`);
+        }
+
+        const farmer = await response.json();
+        console.log("Farmer detail:", farmer);
+
+        
+        document.getElementById("farmerName").textContent = farmer.farmer_name || "Unnamed Farmer";
+        document.getElementById("farmerContact").textContent = farmer.contact || "N/A";
+        document.getElementById("farmerAge").textContent = farmer.age || "N/A";
+        document.getElementById("farmerSex").textContent = farmer.sex || "N/A";
+        document.getElementById("farmerBarangay").textContent = farmer.barangay || "Unknown";
+        document.getElementById("farmerIdLabel").textContent = farmer.id || "N/A";
+
+      
+        renderCropsTable(farmer);
+
+        
+        document.getElementById("totalAreaPlanted").value = farmer.total_area_planted || "0";
+        document.getElementById("pesticideUsed").value = farmer.pesticide_used || "N/A";
+        document.getElementById("fertilizerUsed").value = farmer.fertilizer_used || "N/A";
+
+    } catch (err) {
+        console.error(err);
+        alert("Error loading farmer data: " + err.message);
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-row">Error loading data.</td></tr>`;
+    }
+}
+
+function renderCropsTable(farmer) {
+    const tbody = document.getElementById("cropsTableBody");
+    tbody.innerHTML = "";
+
+    
+    const cropTypes = [
+        { name: "Corn", areaField: "corn_area", harvestField: "corn_harvest", fertField: "corn_fertilizer" },
+        { name: "Tomato", areaField: "tomato_area", harvestField: "tomato_harvest", fertField: "tomato_fertilizer" },
+        { name: "Eggplant", areaField: "eggplant_area", harvestField: "eggplant_harvest", fertField: "eggplant_fertilizer" },
+        { name: "Bellpepper", areaField: "bellpepper_area", harvestField: "bellpepper_harvest", fertField: "bellpepper_fertilizer" },
+        { name: "Squash", areaField: "squash_area", harvestField: "squash_harvest", fertField: "squash_fertilizer" },
+        { name: "Okra", areaField: "okra_area", harvestField: "okra_harvest", fertField: "okra_fertilizer" },
+        { name: "Cucumber", areaField: "cucumber_area", harvestField: "cucumber_harvest", fertField: "cucumber_fertilizer" },
+        { name: "String Beans", areaField: "stringbeans_area", harvestField: "stringbeans_harvest", fertField: "stringbeans_fertilizer" },
+        { name: "Sweetpotato", areaField: "sweet_potatoes_area", harvestField: "sweet_potatoes_harvest", fertField: "sweet_potatoes_fertilizer" },
+        { name: "Potato", areaField: "potato_area", harvestField: "potato_harvest", fertField: "potato_fertilizer" },
+        { name: "Spinach", areaField: "spinach_area", harvestField: "spinach_harvest", fertField: "spinach_fertilizer" },
+        { name: "Kangkong", areaField: "kangkong_area", harvestField: "kangkong_harvest", fertField: "kangkong_fertilizer" },
+        { name: "Carrots", areaField: "carrots_area", harvestField: "carrots_harvest", fertField: "carrots_fertilizer" },
+        { name: "Ampalaya", areaField: "ampalaya_area", harvestField: "ampalaya_harvest", fertField: "ampalaya_fertilizer" },
+        { name: "Malunggay", areaField: "malunggay_area", harvestField: "malunggay_harvest", fertField: "malunggay_fertilizer" },
+        { name: "Cassava", areaField: "cassava_area", harvestField: "cassava_harvest", fertField: "cassava_fertilizer" },
+        { name: "Cabbage", areaField: "cabbage_area", harvestField: "cabbage_harvest", fertField: "cabbage_fertilizer" },
+        { name: "Lettuce", areaField: "lettuce_area", harvestField: "lettuce_harvest", fertField: "lettuce_fertilizer" },
+        { name: "Baguio Beans", areaField: "baguio_beans_area", harvestField: "baguio_beans_harvest", fertField: "baguio_beans_fertilizer" },
+        { name: "Cauliflower", areaField: "cauliflower_area", harvestField: "cauliflower_harvest", fertField: "cauliflower_fertilizer" },
+        { name: "Onion", areaField: "onion_area", harvestField: "onion_harvest", fertField: "onion_fertilizer" },
+        { name: "Spring Onion", areaField: "spring_onion_area", harvestField: "spring_onion_harvest", fertField: "spring_onion_fertilizer" },
+        { name: "Garlic", areaField: "garlic_area", harvestField: "garlic_harvest", fertField: "garlic_fertilizer" },
+        { name: "Ginger", areaField: "ginger_area", harvestField: "ginger_harvest", fertField: "ginger_fertilizer" }
+    ];
+
+    let hasData = false;
+
+    
+    cropTypes.forEach(crop => {
+        const area = farmer[crop.areaField] || 0;
+        const harvest = farmer[crop.harvestField] || 0;
+        const fertilizer = farmer[crop.fertField] || "";
+
+        
+        if (area > 0 || harvest > 0 || fertilizer) {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${crop.name}</td>
+                <td>${area}</td>
+                <td>${harvest}</td>
+                <td>${fertilizer || "N/A"}</td>
+            `;
+            tbody.appendChild(tr);
+            hasData = true;
+        }
+    });
+
+  
+    if (!hasData) {
+        tbody.innerHTML = `<tr><td colspan="4" class="empty-row">No crop records yet.</td></tr>`;
+    }
+}
+</script>
+
+</body>
+</html>

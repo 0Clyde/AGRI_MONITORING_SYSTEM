@@ -1,0 +1,130 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(agriculture-13730152618Ej.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+}
+
+.form-box {
+    background: white;
+    border-radius: 8px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.user-icon {
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 15px;
+    padding-left: 45px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.input-wrapper input:focus {
+    border-color: #45a049;
+}
+
+.input-icon {
+    position: absolute;
+    left: 15px;
+    pointer-events: none;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
+
+.create-btn {
+    width: 100%;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.create-btn:hover {
+    background: #45a049;
+}
+
+    #userProfilePreview {
+            text-align: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        #userProfilePic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #7B4BA6;
+            box-shadow: 0 4px 15px rgba(123, 75, 166, 0.3);
+            background: #fff;
+            margin: 0 auto 10px auto;
+            display: block;
+        }
+        
+        #userProfileName {
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }

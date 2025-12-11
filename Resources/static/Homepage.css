@@ -1,0 +1,114 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('agriculture-13730152618Ej.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); 
+  backdrop-filter: blur(4px);
+  z-index: 0;
+}
+
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  width: 350px;
+  text-align: center;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+
+.logo img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+
+h2 {
+  font-size: 1.2rem;
+  color: #2e7d32;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+
+input[type="text"], 
+input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: 0.3s ease;
+}
+
+input[type="text"]:focus, 
+input[type="password"]:focus {
+  border-color: #43a047;
+  outline: none;
+  box-shadow: 0 0 5px rgba(67, 160, 71, 0.4);
+}
+
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login {
+  background-color: #43a047;
+  color: white;
+}
+
+.signup {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #1b5e20;
+}
+
+
+p {
+  color: #555;
+  margin: 10px 0;
+  font-size: 0.9rem;
+}

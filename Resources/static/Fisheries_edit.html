@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Farmer Fisheries</title>
+    <link rel="stylesheet" href="Fisheries_edit.css">
+</head>
+<body>
+
+<div class="edit-mode-container">
+   
+    <header class="page-header">
+        <h1>Edit Farmer Fisheries</h1>
+        <button class="back-btn" onclick="goBack()">← Back to Details</button>
+    </header>
+    
+   
+    <section class="farmer-info-readonly">
+        <h2>Farmer Information</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <label>Name:</label>
+                <span id="farmerName">—</span>
+            </div>
+            <div class="info-item">
+                <label>Contact:</label>
+                <span id="farmerContact">—</span>
+            </div>
+            <div class="info-item">
+                <label>Age:</label>
+                <span id="farmerAge">—</span>
+            </div>
+            <div class="info-item">
+                <label>Sex:</label>
+                <span id="farmerSex">—</span>
+            </div>
+            <div class="info-item">
+                <label>Barangay:</label>
+                <span id="farmerBarangay">—</span>
+            </div>
+            <div class="info-item">
+                <label>Farmer ID:</label>
+                <span id="farmerId">—</span>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="fisheries-edit-section">
+        <div class="section-header">
+            <h2>Fisheries Management</h2>
+            <p>Edit existing fisheries or add new fish types to the farmer's inventory.</p>
+        </div>
+        
+        <div class="table-container">
+            <table class="fisheries-edit-table">
+                <thead>
+                    <tr>
+                        <th>Fish Type</th>
+                        <th>Number of Ponds</th>
+                        <th>Area (sq.m)</th>
+                        <th>No. of Stocks</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="fisheriesEditBody">
+                   
+                </tbody>
+            </table>
+        </div>
+
+        <button class="add-fishery-btn" onclick="addNewFisheryRow()">Add Fish Type</button>
+
+        <div class="action-buttons">
+            <button class="btn-cancel" onclick="cancelEdit()">Cancel</button>
+            <button class="btn-save" onclick="saveChanges()">Save Changes</button>
+        </div>
+    </section>
+</div>
+
+<script>
+let currentFarmer = null;
+let fisheriesRows = [];
+
+
+const fishTypes = ["Tilapia", "Bangus", "Catfish", "Crawfish"];
+
+
+const fishFieldMap = {
+    "Tilapia": { ponds: "tilapiaPonds", area: "tilapiaArea", stocks: "tilapiaStocks" },
+    "Bangus": { ponds: "bangusPonds", area: "bangusArea", stocks: "bangusStocks" },
+    "Catfish": { ponds: "hitoPonds", area: "hitoArea", stocks: "hitoStocks" },
+    "Crawfish": { ponds: "crawfishPonds", area: "crawfishArea", stocks: "crawfishStocks" }
+};
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+function goBack() {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+    window.location.href = `farmersfisheries_info.html?barangay=${barangay}&farmerId=${farmerId}`;
+}
+
+function cancelEdit() {
+    if (confirm("Are you sure you want to cancel? All unsaved changes will be lost.")) {
+        goBack();
+    }
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+    
+    if (!barangay || !farmerId) {
+        alert("Missing barangay or farmer ID!");
+        window.history.back();
+        return;
+    }
+    
+    await loadFarmerData(barangay, farmerId);
+});
+
+async function loadFarmerData(barangay, farmerId) {
+    try {
+        console.log(`Loading farmer data: ${barangay}/${farmerId}`);
+        const response = await fetch(`/api/fisheries/${barangay}/${farmerId}`);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to load farmer data: ${response.statusText}`);
+        }
+
+        currentFarmer = await response.json();
+        console.log("Loaded farmer:", currentFarmer);
+
+        
+        document.getElementById("farmerName").textContent = currentFarmer.farmerName || "N/A";
+        document.getElementById("farmerContact").textContent = currentFarmer.contact || "N/A";
+        document.getElementById("farmerAge").textContent = currentFarmer.age || "N/A";
+        document.getElementById("farmerSex").textContent = currentFarmer.sex || "N/A";
+        document.getElementById("farmerBarangay").textContent = currentFarmer.barangay || "N/A";
+        document.getElementById("farmerId").textContent = currentFarmer.id || "N/A";
+
+        
+        loadExistingFisheries();
+
+    } catch (err) {
+        console.error("Error loading farmer:", err);
+        alert("Error loading farmer data: " + err.message);
+        window.history.back();
+    }
+}
+
+function loadExistingFisheries() {
+    fisheriesRows = [];
+    
+    
+    fishTypes.forEach(fishName => {
+        const fields = fishFieldMap[fishName];
+        const ponds = currentFarmer[fields.ponds] || 0;
+        const area = currentFarmer[fields.area] || 0;
+        const stocks = currentFarmer[fields.stocks] || 0;
+        
+        if (ponds > 0 || area > 0 || stocks > 0) {
+            fisheriesRows.push({
+                fishType: fishName,
+                ponds: ponds,
+                area: area,
+                stocks: stocks
+            });
+        }
+    });
+
+    renderFisheriesRows();
+}
+
+function renderFisheriesRows() {
+    const tbody = document.getElementById("fisheriesEditBody");
+    tbody.innerHTML = "";
+
+    if (fisheriesRows.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="empty-state">
+                    No fisheries yet. Click "Add Fish Type" to start adding fish.
+                </td>
+            </tr>`;
+        return;
+    }
+
+    fisheriesRows.forEach((row, index) => {
+        const tr = document.createElement("tr");
+        
+        tr.innerHTML = `
+            <td>
+                <select onchange="updateRowFishType(${index}, this.value)">
+                    ${fishTypes.map(fish => 
+                        `<option value="${fish}" ${fish === row.fishType ? 'selected' : ''}>${fish}</option>`
+                    ).join('')}
+                </select>
+            </td>
+            <td>
+                <input type="number" min="0" step="1" value="${row.ponds}" onchange="updateRowPonds(${index}, this.value)">
+            </td>
+            <td>
+                <input type="number" min="0" step="0.01" value="${row.area}" onchange="updateRowArea(${index}, this.value)">
+            </td>
+            <td>
+                <input type="number" min="0" step="1" value="${row.stocks}" onchange="updateRowStocks(${index}, this.value)">
+            </td>
+            <td>
+                <button class="delete-row-btn" onclick="deleteRow(${index})">🗑️ Delete</button>
+            </td>
+        `;
+        
+        tbody.appendChild(tr);
+    });
+}
+
+function updateRowFishType(index, value) {
+    fisheriesRows[index].fishType = value;
+    renderFisheriesRows();
+}
+
+function updateRowPonds(index, value) {
+    fisheriesRows[index].ponds = parseFloat(value) || 0;
+    renderFisheriesRows();
+}
+
+function updateRowArea(index, value) {
+    fisheriesRows[index].area = parseFloat(value) || 0;
+    renderFisheriesRows();
+}
+
+function updateRowStocks(index, value) {
+    fisheriesRows[index].stocks = parseInt(value) || 0;
+    renderFisheriesRows();
+}
+
+function deleteRow(index) {
+    if (confirm(`Are you sure you want to delete ${fisheriesRows[index].fishType}?`)) {
+        fisheriesRows.splice(index, 1);
+        renderFisheriesRows();
+    }
+}
+
+function addNewFisheryRow() {
+    
+    const usedFish = fisheriesRows.map(r => r.fishType);
+    const availableFish = fishTypes.find(f => !usedFish.includes(f));
+    
+    if (!availableFish) {
+        alert("All fish types have been added!");
+        return;
+    }
+    
+    fisheriesRows.push({
+        fishType: availableFish,
+        ponds: 0,
+        area: 0,
+        stocks: 0
+    });
+    
+    renderFisheriesRows();
+}
+
+async function saveChanges() {
+    const barangay = getQueryParam("barangay");
+    const farmerId = getQueryParam("farmerId");
+
+    
+    const payload = {
+        farmerName: currentFarmer.farmerName,
+        contact: currentFarmer.contact,
+        age: currentFarmer.age,
+        sex: currentFarmer.sex,
+        barangay: currentFarmer.barangay
+    };
+
+  
+    fishTypes.forEach(fishName => {
+        const fields = fishFieldMap[fishName];
+        payload[fields.ponds] = 0;
+        payload[fields.area] = 0;
+        payload[fields.stocks] = 0;
+    });
+
+    
+    fisheriesRows.forEach(row => {
+        const fields = fishFieldMap[row.fishType];
+        payload[fields.ponds] = parseInt(row.ponds) || 0;
+        payload[fields.area] = parseFloat(row.area) || 0;
+        payload[fields.stocks] = parseInt(row.stocks) || 0;
+    });
+
+   
+    payload.totalPondArea = currentFarmer.totalPondArea || 0;
+    payload.totalAvgProduction = currentFarmer.totalAvgProduction || 0;
+    payload.totalFeedsUsed = currentFarmer.totalFeedsUsed || 0;
+    payload.tilapiaFeeds = currentFarmer.tilapiaFeeds || 0;
+    payload.bangusFeeds = currentFarmer.bangusFeeds || 0;
+    payload.catfishFeeds = currentFarmer.catfishFeeds || 0;
+    payload.crawfishFeeds = currentFarmer.crawfishFeeds || 0;
+
+    console.log("Saving payload:", payload);
+
+    try {
+        const response = await fetch(`/api/fisheries/${barangay}/${farmerId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Failed to save: ${errorText}`);
+        }
+
+        alert("Fisheries information updated successfully!");
+        window.location.href = `farmersfisheries_info.html?barangay=${barangay}&farmerId=${farmerId}`;
+
+    } catch (err) {
+        console.error("Error saving:", err);
+        alert("Error saving changes: " + err.message);
+    }
+}
+</script>
+
+</body>
+</html>
